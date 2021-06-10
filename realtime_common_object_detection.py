@@ -70,7 +70,7 @@ class RTCObjectDetection(object):
             if RTCObjectDetection.label:
 
                 frame = draw_bbox(frame, RTCObjectDetection.bbox, RTCObjectDetection.label, RTCObjectDetection.conf)
-                index = int(self.find_index_of_label(RTCObjectDetection.label))
+                index = int(self.find_index_of_label(RTCObjectDetection.label,'cell phone'))
 
                 if 'cell phone' in RTCObjectDetection.label:
 
