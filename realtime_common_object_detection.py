@@ -54,12 +54,6 @@ class RTCObjectDetection(object):
                 return int(index)
         return 0
 
-    def init_bbox(self,bbox):
-        pass
-
-    def init_o_bbox(self,o_bbox):
-        pass
-
     def main(self):
 
         # Initialize the frame count tracker to 0
