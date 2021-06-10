@@ -11,6 +11,9 @@ from cvlib.object_detection import draw_bbox
 
 class RTCObjectDetection(object):
 
+    # locate object_detection.py
+    # bbox.append([int(x), int(y), int(x+w), int(y+h)])
+
     bbox, label, conf = str(), str(), str()
 
     def __init__(self,filename='/home/anthony/video.avi'):
@@ -70,9 +73,9 @@ class RTCObjectDetection(object):
             if RTCObjectDetection.label:
 
                 frame = draw_bbox(frame, RTCObjectDetection.bbox, RTCObjectDetection.label, RTCObjectDetection.conf)
-                index = self.find_index_of_label(RTCObjectDetection.label,'cell phone')
+                index = self.find_index_of_label(RTCObjectDetection.label,'bottle')
 
-                if 'cell phone' in RTCObjectDetection.label:
+                if 'bottle' in RTCObjectDetection.label:
 
                     # Initialize original bbox if no value has been assigned yet
                     if o_bbox is None or not o_bbox:
@@ -81,22 +84,18 @@ class RTCObjectDetection(object):
                     # Set bbox to the corresponding label index
                     bbox = RTCObjectDetection.bbox[index]
 
-                    print('[INFO] (RTCObjectDetection.main) - bbox( (( NO )) MOVEMENT) => '+str(bbox))
-                    print('[INFO] (RTCObjectDetection.main) - o_bbox( (( NO )) MOVEMENT) => '+str(o_bbox))
-
                     # Numpy arrays are needed so we can compare 2d array elements
                     # to their corresponding indexes, i.e., n1[0] -> n2[0], n1[1] -> n2[1], etc.
                     n1 = np.array(o_bbox)
                     n2 = np.array(bbox)
 
                     try:
-                        if ((n1-n2) > 50).any():
+                        if (abs(n1-n2) > 50).any():
                             print('Cell phone movement detected!')
-                            print('[INFO] (RTCObjectDetection.main) - n1 => '+str(n1))
-                            print('[INFO] (RTCObjectDetection.main) - n2 => '+str(n2))
+                            print('[INFO] (RTCObjectDetection.main) - o_bbox numpy(n1) array => '+str(n1))
+                            print('[INFO] (RTCObjectDetection.main) - bbox numpy(n2) array   => '+str(n2))
                             # If movement of desired(specified) object is detected re-init o_bbox's values
                             o_bbox = RTCObjectDetection.bbox[index]
-                            print('[INFO] (RTCObjectDetection.main) - o_bbox(MOVEMENT) => '+str(o_bbox))
                     except Exception as exception:
                         print('Exception exception => '+str(exception))
                         pass
