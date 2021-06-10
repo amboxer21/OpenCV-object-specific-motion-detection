@@ -41,7 +41,7 @@ class RTCObjectDetection(object):
         for index in range(0,len(labels)):
             if label in labels[index]:
                 return int(index)
-        return None
+        return 0
 
     def init_bbox(self,bbox):
         pass
@@ -70,7 +70,7 @@ class RTCObjectDetection(object):
             if RTCObjectDetection.label:
 
                 frame = draw_bbox(frame, RTCObjectDetection.bbox, RTCObjectDetection.label, RTCObjectDetection.conf)
-                index = int(self.find_index_of_label(RTCObjectDetection.label,'cell phone'))
+                index = self.find_index_of_label(RTCObjectDetection.label,'cell phone')
 
                 if 'cell phone' in RTCObjectDetection.label:
 
@@ -81,8 +81,8 @@ class RTCObjectDetection(object):
                     # Set bbox to the corresponding label index
                     bbox = RTCObjectDetection.bbox[index]
 
-                    print('[INFO] (RTCObjectDetection.main) - bbox(NO MOVEMENT) => '+str(bbox))
-                    print('[INFO] (RTCObjectDetection.main) - o_bbox(NO MOVEMENT) => '+str(o_bbox))
+                    print('[INFO] (RTCObjectDetection.main) - bbox( (( NO )) MOVEMENT) => '+str(bbox))
+                    print('[INFO] (RTCObjectDetection.main) - o_bbox( (( NO )) MOVEMENT) => '+str(o_bbox))
 
                     # Numpy arrays are needed so we can compare 2d array elements
                     # to their corresponding indexes, i.e., n1[0] -> n2[0], n1[1] -> n2[1], etc.
